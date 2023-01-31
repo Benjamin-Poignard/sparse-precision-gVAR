@@ -137,7 +137,7 @@ Purpose of the function: estimate a sparsity-based precision matrix based on a m
 
 Inputs:
 - X: vector of observation.
-- loss: 'Gaussian' or 'DTrace'; if 'Gaussian', the GLASSO algorithm is performed (only with LASSO)
+- loss: 'Gaussian' or 'DTrace'; if 'Gaussian', the GLASSO algorithm is performed (only with LASSO).
 - lambda: tuning parameter (grid of values).
 - method (for D-trace loss): 'scad', 'mcp', 'alasso', 'lasso'.
 - a_scad: value of the scad parameter.
@@ -159,11 +159,11 @@ The procedure is based on the ADMM algorithm proposed in Zhang and Zou (2014): t
 
 Inputs:
 - S: sample variance covariance matrix of the observations.
-- W: matrix of weights active for the local linear approximation algorithm for SCAD and MCP; for SCAD and MCP, W is the LASSO estimator; for the LASSO penalization, $\text{W} = \text{eye}(p)$.
-- lambda: tuning parameter
-- method: 'scad', 'mcp', 'alasso', 'lasso'
-- a_scad: value of the scad parameter
-- b_mcp: value of the mcp parameter
+- W: matrix of weights active for the local linear approximation algorithm for SCAD and MCP; for SCAD and MCP, W is the LASSO estimator; for the LASSO penalization, W = $I_p$ the identity matrix.
+- lambda: tuning parameter.
+- method: 'scad', 'mcp', 'alasso', 'lasso'.
+- a_scad: value of the scad parameter.
+- b_mcp: value of the mcp parameter.
 
 Outputs:
 - Theta: sparse precision matrix estimated by the D-trace loss.
@@ -179,13 +179,13 @@ The procedure performs the graphical LASSO proposed by Friedman et al. (2008). T
 
 Inputs:
 - X: vector of observation. 
-- lambda: tuning parameter
+- lambda: tuning parameter.
 - maxIt: maximum number of iterations (optional).
 - tol: convergence tolerance level (optional).
 
 Outputs:
 - theta: vech(Theta), i.e. column vector that stacks the columns of the lower triangular part of Theta with Theta the sparse precision matrix estimated by the LASSO Gaussian loss.
-- W: regularized covariance matrix estimator, $\text{W} = \text{Theta}^{-1}$
+- W: regularized covariance matrix estimator, W = $\text{Theta}^{-1}$.
 
 **simulate_sparse_SVAR.m**:
 
@@ -195,11 +195,11 @@ Purpose of the function: generate a sparse $\Theta$ precision matrix, whose stru
 </p>
 
 Input:
-- N: dimension of the vector of observations
+- N: dimension of the vector of observations.
 - P: number of desired VAR/SVAR lags.
-- sparsity: desired sparsity degree in Theta_true, i.e., the number corresponding to the proportion of zero coefficients located in vech(Theta_true), the column vector that stacks the columns of the lower triangular part of Theta_true, excluding the diagonal coefficients. The proportion of zero entries is simply defined as $\text{sparsity}/(q*(q-1)/2)$, $q = N(P+1)$.
+- sparsity: desired sparsity degree in Theta_true, i.e., the number corresponding to the proportion of zero coefficients located in vech(Theta_true), the column vector that stacks the columns of the lower triangular part of Theta_true, excluding the diagonal coefficients. The proportion of zero entries is simply defined as sparsity/(q*(q-1)/2),  with q = N(P+1).
 - sparsity2: controls for the minimum sparsity degree of the zeros in $B_0, B1, \ldots, B_p$: it refers to $\tilde{s}$ defined step (v) in the simulation procedure described in S.2 of the Online Supplement.
-- density: controls the proportion of non-zero elements in the $q \times q$ matrix, where each entry is the sum of one or more normally distributed random samples
+- density: controls the proportion of non-zero elements in the $q \times q$ matrix, where each entry is the sum of one or more normally distributed random samples.
 - a1 and a2: coefficients controlling for the generating $C^{(1)}$ in step (ii) of the simulation procedure, i.e. $C^{(1)} = K + \beta I_q$, with $\beta \in \mathcal{U}([a1,a2])$ to ensure the positive-definiteness of $C^{(0)}, q = N(P+1)$.
 
 Outputs: 
@@ -220,8 +220,7 @@ Inputs:
 - Y: response variable.
 - X: covariates.
 - lambda: tuning parameter.
-- method: 'ridge' or 'lasso'. \\
-*Note*: If 'lasso' is selected, then 'no intercept' is selected to get the estimate in line 114 of *real_data_analysis.m*, when executing the function *sparse_VAR.m*: the version 12.0 or above of the Statistics and Machine Learning Toolbox should be installed, otherwise an error will occur.
+- method: 'ridge' or 'lasso'. *Note*: If 'lasso' is selected, then 'no intercept' is selected to get the estimate in line 114 of *real_data_analysis.m*, when executing the function *sparse_VAR.m*: the version 12.0 or above of the Statistics and Machine Learning Toolbox should be installed, otherwise an error will occur.
 
 Outputs: 
 - theta_est: penalized solution.
